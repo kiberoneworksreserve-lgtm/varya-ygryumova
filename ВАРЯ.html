@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Варвара, Лера и кот Персик — семейные таланты</title>
+    <!-- Детские шрифты с имитацией почерка -->
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (бесплатные иконки) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #bff2eb;  /* нежно-бирюзовый фон */
+            background-image: radial-gradient(circle at 10% 30%, rgba(190, 240, 225, 0.4) 2%, transparent 2.5%),
+                              radial-gradient(circle at 85% 70%, rgba(160, 225, 210, 0.5) 1.8%, transparent 2%);
+            background-size: 40px 40px, 35px 35px;
+            font-family: 'Patrick Hand', 'Quicksand', 'Caveat', cursive, sans-serif;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            position: relative;
+            color: #1e4a4a;
+        }
+
+        /* КАРАНДАШНЫЙ РИСУНОК ПАЛЬМЫ С КОКОСАМИ (фон) */
+        .pencil-palm {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            width: 240px;
+            height: 260px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.75;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.05));
+        }
+
+        .pencil-palm-right {
+            top: 40px;
+            right: 20px;
+            left: auto;
+            bottom: auto;
+            width: 190px;
+            height: 200px;
+            opacity: 0.65;
+            transform: scaleX(-1);
+        }
+
+        /* SVG стиль — карандашная текстура (штрихи) */
+        .pencil-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* контейнер с карточками на переднем плане */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* заголовок */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .hero h1 {
+            font-family: 'Caveat', 'Patrick Hand', cursive;
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: #165a5a;
+            text-shadow: 5px 5px 0 #c8ffe8;
+            letter-spacing: 2px;
+            background: rgba(255,248,225,0.5);
+            display: inline-block;
+            padding: 0.2rem 1.5rem;
+            border-radius: 120px;
+            backdrop-filter: blur(3px);
+        }
+        .hero p {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.4rem;
+            margin-top: 0.8rem;
+            background: #fffbe6aa;
+            display: inline-block;
+            padding: 0.3rem 1.3rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* сетка карточек */
+        .cards-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+
+        /* карточки с круглыми углами и детским стилем */
+        .card {
+            background: rgba(255, 254, 250, 0.95);
+            backdrop-filter: blur(1px);
+            border-radius: 50px;
+            box-shadow: 0 20px 35px -12px rgba(0, 30, 30, 0.2);
+            width: 300px;
+            padding: 1.8rem 1.5rem 2rem;
+            transition: all 0.25s ease;
+            border: 2px solid #f5ffe0;
+            text-align: center;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            background: #ffffff;
+            border-color: #fed98f;
+            box-shadow: 0 28px 38px -15px rgba(0, 0, 0, 0.2);
+        }
+
+        .avatar {
+            font-size: 4.2rem;
+            background: #e2f5f0;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #318e7a;
+            border: 3px dotted #80cfc0;
+        }
+
+        .card h2 {
+            font-family: 'Caveat', 'Patrick Hand', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            color: #1f6e5c;
+        }
+
+        .role-tag {
+            font-family: 'Patrick Hand', cursive;
+            background: #daf6f0;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: #0f6b5b;
+            margin-bottom: 1.2rem;
+        }
+
+        .info-block {
+            text-align: left;
+            background: #fef7e0;
+            padding: 0.9rem 1rem;
+            border-radius: 32px;
+            margin: 1rem 0;
+            border-left: 7px solid #fcb375;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #bb7842;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            font-family: 'Patrick Hand', 'Quicksand', cursive;
+            font-size: 1.25rem;
+            font-weight: 500;
+            line-height: 1.3;
+            color: #2a5f54;
+        }
+
+        .superpower-glow {
+            background: #fff2e0;
+            border-left-color: #f5bc70;
+        }
+
+        /* уникальный стиль для кота: кotoфары */
+        .cat-power {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .glow-eyes {
+            display: inline-block;
+            background: #ffde6e;
+            box-shadow: 0 0 6px #f7b32b, 0 0 12px #ffcd7e;
+            border-radius: 50%;
+            padding: 0 5px;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .card:hover .glow-eyes {
+            animation: flashFur 1s infinite alternate;
+        }
+        @keyframes flashFur {
+            0% { text-shadow: 0 0 2px #f7b32b; background: #ffe3a3; box-shadow: 0 0 2px gold;}
+            100% { text-shadow: 0 0 8px #ffa047; background: #ffd966; box-shadow: 0 0 12px #f5a623;}
+        }
+
+        /* секция маленьких чудес */
+        .magic-note {
+            background: rgba(220, 245, 238, 0.8);
+            border-radius: 60px;
+            padding: 1.6rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            backdrop-filter: blur(3px);
+            border: 1px dashed #5aa89b;
+        }
+        .magic-note p {
+            font-size: 1.35rem;
+            font-family: 'Caveat', cursive;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            background: #a7ded3aa;
+            padding: 0.8rem;
+            border-radius: 48px;
+            backdrop-filter: blur(3px);
+        }
+
+        /* карандашные акценты */
+        .pencil-doodle {
+            display: inline-block;
+            transform: rotate(-3deg);
+        }
+
+        @media (max-width: 780px) {
+            body { padding: 1rem; }
+            .hero h1 { font-size: 2.6rem; }
+            .cards-grid { gap: 1.5rem; }
+            .card { width: 280px; padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- КАРАНДАШНЫЙ РИСУНОК ПАЛЬМЫ С КОКОСАМИ (SVG левая пальма + правая) -->
+<div class="pencil-palm">
+    <svg class="pencil-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#6F4F2E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <!-- Ствол пальмы (карандашные штрихи) -->
+            <path d="M90 190 L94 120 L88 50 L96 10" stroke-dasharray="3 2"/>
+            <path d="M110 188 L108 115 L112 48 L104 12" stroke-dasharray="2 2.5"/>
+            <!-- крона — листья пальмы карандашные -->
+            <path d="M100 15 L35 45 M100 15 L28 80 M100 15 L50 98"/>
+            <path d="M100 15 L148 30 M100 15 L172 65 M100 15 L158 92"/>
+            <path d="M100 15 L75 10 M100 15 L125 8" />
+            <!-- кокосы -->
+            <circle cx="62" cy="78" r="8" stroke-dasharray="1.8 1.5" fill="#d4b48c" fill-opacity="0.3"/>
+            <circle cx="134" cy="54" r="7.5" stroke-dasharray="1.8 1.5" fill="#d4b48c" fill-opacity="0.3"/>
+            <circle cx="105" cy="92" r="9" stroke-dasharray="1.8 1.5" fill="#d4b48c" fill-opacity="0.3"/>
+            <path d="M61 78 L61 80 M134 54 L134 56 M105 92 L105 94" stroke="#7c5a3a" stroke-width="1.8"/>
+            <!-- маленькие штрихи листвы -->
+            <path d="M42 55 L32 62 M155 48 L168 55" stroke="#6F4F2E" stroke-width="1.5"/>
+        </g>
+        <!-- надпись карандашом для настроения -->
+        <text x="30" y="205" font-family="Caveat" font-size="12" fill="#9b7a4d" opacity="0.6">~ кокосовая мечта ~</text>
+    </svg>
+</div>
+
+<div class="pencil-palm pencil-palm-right">
+    <svg class="pencil-svg" viewBox="0 0 180 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#6F4F2E" stroke-width="2" stroke-linecap="round" fill="none">
+            <path d="M80 170 L85 100 L78 45 L88 12" stroke-dasharray="3 2"/>
+            <path d="M100 165 L98 95 L105 42 L94 10" stroke-dasharray="2 2"/>
+            <path d="M90 12 L35 38 M90 12 L30 72 M90 12 L48 90"/>
+            <path d="M90 12 L145 28 M90 12 L165 58 M90 12 L150 85"/>
+            <circle cx="48" cy="70" r="7" stroke-dasharray="1.5 1.5" fill="#c4a472" fill-opacity="0.2"/>
+            <circle cx="137" cy="48" r="6.5" stroke-dasharray="1.5 1.5" fill="#c4a472" fill-opacity="0.2"/>
+            <circle cx="110" cy="85" r="7.8" stroke-dasharray="1.5 1.5" fill="#c4a472" fill-opacity="0.2"/>
+        </g>
+    </svg>
+</div>
+
+<div class="container">
+    <div class="hero">
+        <h1>✨ Варвара, Лера и Персик ✨</h1>
+        <p><i class="fas fa-pencil-alt"></i> семейные суперсилы и тайские мечты <i class="fas fa-coconut"></i></p>
+    </div>
+
+    <!-- три карточки: ребёнок, родитель, кот -->
+    <div class="cards-grid">
+        <!-- Варвара — дочка, 8 лет -->
+        <div class="card">
+            <div class="avatar">
+                <i class="fas fa-child"></i>
+            </div>
+            <h2>Варвара</h2>
+            <div class="role-tag"><i class="fas fa-star"></i> 8 лет · юная мечтательница</div>
+            <div class="info-block">
+                <div class="info-label"><i class="fas fa-frog"></i> Возраст</div>
+                <div class="info-value">8 лет (уже почти взрослая!)</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label"><i class="fas fa-umbrella-beach"></i> Самая заветная мечта</div>
+                <div class="info-value">🌴 ЖИТЬ В ТАИЛАНДЕ 🌊<br> 🥥 Пальмы, океан, лето круглый год и бесконечные манго!</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label"><i class="fas fa-heart"></i> Любимая фраза</div>
+                <div class="info-value">«Мама, а когда мы увидим слонов и синюю-синюю воду?» 🐘</div>
+            </div>
+        </div>
+
+        <!-- Лера (родитель) суперспособность: волшебно готовить -->
+        <div class="card">
+            <div class="avatar">
+                <i class="fas fa-hands-bubbles"></i>
+            </div>
+            <h2>Лера</h2>
+            <div class="role-tag"><i class="fas fa-magic"></i> мама с волшебной поварёшкой</div>
+            <div class="info-block superpower-glow">
+                <div class="info-label"><i class="fas fa-sparkles"></i> Суперспособность</div>
+                <div class="info-value"><strong>🌟 Волшебно готовить!</strong> Любое блюдо превращается в маленькое чудо: тайский суп том-ям, клейкий рис с манго, кокосовое печенье — и мечта о Таиланде становится вкусной реальностью.</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label"><i class="fas fa-cookie-bite"></i> Магия на кухне</div>
+                <div class="info-value">Одним движением ложки переносит семью на пляж Пхукета! Лера даже готовит «радужный пад-тай», который заряжает солнечной энергией ✨</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label"><i class="fas fa-quote-left"></i> Секретный ингредиент</div>
+                <div class="info-value">«Любовь и щепотка тайской мечты» — и ужин становится приключением!</div>
+            </div>
+        </div>
+
+        <!-- Кот Персик: лежать котлеткой + котофары в темноте -->
+        <div class="card">
+            <div class="avatar">
+                <i class="fas fa-cat"></i>
+            </div>
+            <h2>Персик</h2>
+            <div class="role-tag"><i class="fas fa-moon"></i> пушистый хранитель дивана</div>
+            <div class="info-block">
+                <div class="info-label"><i class="fas fa-bed"></i> Суперсила №1</div>
+                <div class="info-value">🍑 <strong>Лежать котлеткой</strong> целый день! Персик умеет сворачиваться в идеальную котлетку и может пролежать так до 18 часов, мурлыча тайские мотивы.</div>
+            </div>
+            <div class="info-block superpower-glow">
+                <div class="info-label"><i class="fas fa-lightbulb"></i> Суперсила №2 (ночная)</div>
+                <div class="info-value cat-power">
+                    <span>⚡ КОТОФАРЫ ⚡</span>
+                    <span class="glow-eyes"><i class="fas fa-eye"></i><i class="fas fa-eye"></i></span>
+                </div>
+                <div class="info-value" style="margin-top: 8px;">В тёмное время суток глаза Персика загораются как мощные фары — <strong>освещают дорогу к холодильнику!</strong> (и к мечте о ночных печеньках) ✨🚗💨</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label"><i class="fas fa-paw"></i> Хобби</div>
+                <div class="info-value">Спать на паспорте (вдруг в Таиланд?), ловить солнечных зайчиков и наблюдать, как мама Лера волшебно готовит.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- тёплая заметка о связи способностей -->
+    <div class="magic-note">
+        <p><i class="fas fa-dragon"></i>  Однажды вечером, когда Персик включил свои котофары, мама Лера приготовила настоящий тайский ужин, а Варвара нарисовала пальму с кокосами. Мечта о Таиланде стала ещё на шаг ближе! 🌺  </p>
+        <p style="font-size: 1.2rem; margin-top: 10px;"><i class="fas fa-crown"></i> Магия семьи: мечты + вкусная еда + пушистый свет = настоящее счастье <i class="fas fa-feather-alt"></i></p>
+    </div>
+
+    <!-- забавный факт про котофары в стиле детского почерка -->
+    <div style="background: #ffffffaa; border-radius: 38px; padding: 1rem 1.5rem; margin-top: 0.5rem; text-align: center; font-family: 'Patrick Hand';">
+        <i class="fas fa-lightbulb"></i> <strong>Интересно:</strong> ночью, когда Персик просыпается и включает «режим котофар», вся кухня освещается мягким золотистым светом — Лера даже печёт печенье при таком освещении! 🐱🔦
+    </div>
+
+    <footer>
+        <i class="fas fa-crown"></i> Варвара (8) мечтает о Таиланде · Лера волшебно готовит тайские чудеса · Персик светит котофарами и лежит котлеткой <i class="fas fa-moon"></i><br>
+        <span style="font-size: 0.9rem;">✏️ Карандашные пальмы с кокосами на фоне, крупный детский почерк и самые тёплые семейные способности ✨</span>
+    </footer>
+</div>
+
+<!-- небольшой скрипт для динамики "котофар" (при нажатии на кота? для эффекта) — просто демо смены иконки, но не обязательно -->
+<script>
+    // крошечный интерактив, чтобы показать "котофары" — если кликнуть по карточке кота, заморгают сильнее
+    const catCard = document.querySelector('.card:last-child');
+    if(catCard){
+        catCard.addEventListener('click', () => {
+            const glowSpan = catCard.querySelector('.glow-eyes');
+            if(glowSpan){
+                glowSpan.style.animation = 'none';
+                glowSpan.offsetHeight;
+                glowSpan.style.animation = 'flashFur 0.8s ease 3';
+                setTimeout(() => {
+                    if(glowSpan) glowSpan.style.animation = '';
+                }, 800);
+            }
+        });
+    }
+</script>
+</body>
+</html>
